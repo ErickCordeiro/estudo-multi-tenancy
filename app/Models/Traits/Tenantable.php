@@ -11,9 +11,9 @@ trait Tenantable
     {
         static::addGlobalScope(new TenantScope);
         
-        if(session()->has('tenant_id') && !is_null(session()->get('tenant_id'))){
+        if(checkTenantId()){
             static::creating(function($model){
-                $model->tenant_id = session()->get('tenant_id');
+                $model->tenant_id = session('tenant_id');
             });
         };
     }
